@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router()
 
 //Getting controllers
-const {signup,signin} = require('../controllers/auth')
+const {signup,signin, signout,requireSignIn} = require('../controllers/auth')
 
 
 //validators
@@ -13,5 +13,10 @@ const {userSignInValidator} = require('../validators/auth')
 
 router.post('/signup',userSignUpValidator,runValidation,signup)
 router.post('/signin',userSignInValidator,runValidation,signin)
+router.get('/signout',signout)
+
+router.get('/secret',requireSignIn,(req,res)=>{
+    res.json({message:"hello"})
+})
 
 module.exports = router
