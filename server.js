@@ -5,10 +5,22 @@ const bodyparser = require('body-parser');
 const cookieparser = require('cookie-parser');
 const cors = require('cors');
 require('dotenv').config();
+const mongoose = require('mongoose')
 
 //Creating app
 
 const app = express();
+
+//db
+
+mongoose.connect(process.env.DATABASE)
+    .then(() => {
+      console.log('MongoDB connected successfully......');
+    })
+    .catch((error) => {
+      console.error('MongoDB connection error:', error);
+    });
+  
 
 //middlewares
 
