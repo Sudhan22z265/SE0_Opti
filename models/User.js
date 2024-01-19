@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    salt: Number,
+    salt: String,
     about:{
         type:String,
 
@@ -47,7 +47,7 @@ const userSchema = new mongoose.Schema({
         type:String
     },
     resetPasswordLink:{
-        data:String,
+        type:String,
         default:''
     }
 
