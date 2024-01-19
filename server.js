@@ -7,13 +7,15 @@ const cors = require('cors');
 require('dotenv').config();
 const mongoose = require('mongoose')
 
-//Creating app
+//routes getting
+const blogroutes = require('./routes/Blog')
 
+//Creating app
 const app = express();
 
 //db
 
-mongoose.connect(process.env.DATABASE)
+mongoose.connect(process.env.DATABASE_CLOUD)
     .then(() => {
       console.log('MongoDB connected successfully......');
     })
@@ -28,15 +30,13 @@ app.use(morgan('dev'))
 app.use(bodyparser.json())
 app.use(cookieparser())
 
+//routes middlewares
+app.use('/api',blogroutes)
+
 //cors
 if(process.env.NODE_ENV == 'development'){
     app.use(cors({'origin':`${process.env.CLIENT_URL}`}))
 }
-
-//routes
-app.get('/api',(req,res)=>{
-    res.json({time:Date().toString()})
-})
 
 
 //server
