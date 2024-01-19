@@ -9,7 +9,7 @@ const mongoose = require('mongoose')
 
 //routes getting
 const blogroutes = require('./routes/Blog')
-
+const authroutes = require('./routes/auth')
 //Creating app
 const app = express();
 
@@ -32,6 +32,7 @@ app.use(cookieparser())
 
 //routes middlewares
 app.use('/api',blogroutes)
+app.use('/api',authroutes)
 
 //cors
 if(process.env.NODE_ENV == 'development'){
