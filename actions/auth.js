@@ -1,6 +1,6 @@
 import fetch from "isomorphic-fetch";
 import {API} from '../config'
-
+import cookie from 'js-cookie'
 import React from 'react'
 
 const signupauth = (user) => {
@@ -32,4 +32,53 @@ const signinauth = (user) => {
   .catch(err=>console.log(err))
 }
 
-export {signupauth,signinauth}
+const setCookie = (key, value) => {
+  if (typeof window !== 'undefined') {
+    // Update the cookie.set call to pass options as an object
+    cookie.set(key, value, { expires: 60 * 60 * 24 });
+  }
+}
+
+
+const removeCookie = (key) =>{
+  if(typeof window !== 'undefined')
+  {
+    cookie.remove(key,{expiresIn:60*60*24})
+  }
+}
+
+const getCookie = (key) =>{
+  if(typeof window !== 'undefined')
+  {
+    cookie.get(key)
+  }
+}
+const setLocalStorage = (key,value) =>{
+  if(typeof window !== 'undefined'){
+    localStorage.setItem(key,JSON.stringify(value))
+  }
+}
+const removeLocalStorage = (key) =>{
+  if(typeof window !== 'undefined'){
+    localStorage.removeItem(key)
+  }
+}
+const authenticate = (data,next) => {
+  setCookie('token',data.token)
+  setLocalStorage('user',data.user)
+  next();
+}
+const isAuth = () => {
+  if(typeof window !== 'undefined'){
+    const cook = getCookie('token')
+      if(cook){
+        if(localStorage.getItem('user'))
+        return localStorage.getItem('user');
+      }
+      else{
+        return false
+      }
+    }
+  }
+
+export {signupauth,signinauth,authenticate,isAuth}

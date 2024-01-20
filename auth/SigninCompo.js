@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {signinauth} from '../actions/auth'
+import {signinauth,authenticate} from '../actions/auth'
 import { useRouter } from 'next/router';
 
 
@@ -18,7 +18,10 @@ const SigninCompo = () => {
                 setValues ({...values,loading:false,error:data.error})
             }
             else{
-                router.push('/')
+                authenticate(data,()=>{
+                    router.push('/')
+                })
+                
             }
         }
         )
