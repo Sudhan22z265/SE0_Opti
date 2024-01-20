@@ -40,17 +40,17 @@ const setCookie = (key, value) => {
 }
 
 
-const removeCookie = (key) =>{
-  if(typeof window !== 'undefined')
-  {
-    cookie.remove(key,{expiresIn:60*60*24})
+const removeCookie = (key) => {
+  if (typeof window !== 'undefined') {
+    cookie.remove(key, { expires: 60 * 60 * 24 });
   }
 }
+
 
 const getCookie = (key) =>{
   if(typeof window !== 'undefined')
   {
-    cookie.get(key)
+    return cookie.get(key)
   }
 }
 const setLocalStorage = (key,value) =>{
@@ -69,16 +69,32 @@ const authenticate = (data,next) => {
   next();
 }
 const isAuth = () => {
-  if(typeof window !== 'undefined'){
-    const cook = getCookie('token')
-      if(cook){
-        if(localStorage.getItem('user'))
-        return localStorage.getItem('user');
-      }
-      else{
-        return false
-      }
+  if (typeof window !== 'undefined') {
+    const cook = getCookie('token');
+    if (cook && localStorage.getItem('user')) {
+      return localStorage.getItem('user');
+    } else {
+      return false;
     }
   }
+}
 
-export {signupauth,signinauth,authenticate,isAuth}
+const signout = (next) => {
+  removeCookie('token');
+  removeLocalStorage('user');
+  // Execute the callback after clearing local data
+  next();
+
+  // Move the fetch request inside the callback
+  fetch(`${API}/signout`, {
+    method: 'GET',
+  })
+    .then(response => {
+      console.log('signout success');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export {signupauth,signinauth,authenticate,isAuth,signout}

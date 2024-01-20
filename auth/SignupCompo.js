@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import {signupauth} from '../actions/auth'
-
+import React, { useState,useEffect } from 'react'
+import {signupauth,isAuth} from '../actions/auth'
+import { useRouter } from 'next/router';
 
 const SignupCompo = () => {
+    const router = useRouter()
     const [values,setValues] = useState({name:'',email:'',password:'',loading:false,error:'',message:'',showForm:true});
     const handleSubmit = (e) =>{
         e.preventDefault()
@@ -22,7 +23,9 @@ const SignupCompo = () => {
         )
         
     }
-   
+    useEffect(() => {
+        isAuth() && router.push('/')
+      }, [])
     
     const showLoading = () => (values.loading? <div class="spinner-border text-primary" role="status">
     <span class="visually-hidden">Loading...</span>

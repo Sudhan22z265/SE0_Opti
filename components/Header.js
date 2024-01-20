@@ -1,7 +1,11 @@
 import React from 'react'
 import { NAME } from '../config'
 import Link from 'next/link'
+import { isAuth,signout } from '../actions/auth'
+import { useRouter } from 'next/router'
+
 const Header = () => {
+  const router = useRouter()
   return (
     <div>
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -21,6 +25,11 @@ const Header = () => {
         <li className="nav-item">
           <Link className="nav-link" href="/signup">signup</Link>
         </li>
+        {isAuth() &&
+        <li className="nav-item">
+          <Link className="nav-link" href=''onClick={() => signout(() => router.push('/signin'))}>signout</Link>
+        </li>
+}
         <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown

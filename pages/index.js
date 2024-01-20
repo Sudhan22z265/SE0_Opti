@@ -5,7 +5,6 @@ const index = () => {
     <div>
       <Layout/>
       
-        
     </div>
   )
 }

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import {signinauth,authenticate} from '../actions/auth'
+import React, { useState,useEffect } from 'react'
+import {signinauth,authenticate, isAuth} from '../actions/auth'
 import { useRouter } from 'next/router';
 
 
@@ -27,6 +27,9 @@ const SigninCompo = () => {
         )
         
     }
+   useEffect(() => {
+     isAuth() && router.push('/')
+   }, [])
    
     
     const showLoading = () => (values.loading? <div class="spinner-border text-primary" role="status">
