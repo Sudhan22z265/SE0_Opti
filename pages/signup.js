@@ -1,8 +1,19 @@
 import React from 'react'
+import SignupCompo from '../auth/SignupCompo'
+import Header from '../components/Header'
 
 const signup = () => {
   return (
-    <div>signup</div>
+    <div>
+        <Header/>
+        <h2 className='text-center'>SignUp</h2>
+        <div className='container  '>
+        <SignupCompo/>
+
+        </div>
+        
+
+    </div>
   )
 }
 

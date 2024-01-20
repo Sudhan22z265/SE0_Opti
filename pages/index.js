@@ -3,8 +3,8 @@ import Layout from '../components/Layout'
 const index = () => {
   return (
     <div>
-      <Layout>
-      </Layout>
+      <Layout/>
+      
         
     </div>
   )
