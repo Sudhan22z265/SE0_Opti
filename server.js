@@ -10,6 +10,7 @@ const mongoose = require('mongoose')
 //routes getting
 const blogroutes = require('./routes/Blog')
 const authroutes = require('./routes/auth')
+const userroutes = require('./routes/user')
 //Creating app
 const app = express();
 
@@ -25,7 +26,7 @@ mongoose.connect(process.env.DATABASE_CLOUD)
   
 
 //middlewares
-
+app.use(cors())
 app.use(morgan('dev'))
 app.use(bodyparser.json())
 app.use(cookieparser())
@@ -33,11 +34,11 @@ app.use(cookieparser())
 //routes middlewares
 app.use('/api',blogroutes)
 app.use('/api',authroutes)
-
+app.use('/api',userroutes)
 //cors
-if(process.env.NODE_ENV == 'development'){
-    app.use(cors({'origin':`${process.env.CLIENT_URL}`}))
-}
+
+    
+
 
 
 //server
